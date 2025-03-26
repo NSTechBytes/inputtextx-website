@@ -2,16 +2,9 @@
 import { ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import AnimatedLogo from './AnimatedLogo';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
-  const scrollToDownload = () => {
-    document.getElementById('download')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const scrollToFeatures = () => {
-    document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section id="home" className="relative min-h-screen pt-24 pb-16 flex flex-col items-center justify-center overflow-hidden">
       {/* Background Effect */}
@@ -44,30 +37,33 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="bg-github-accent hover:bg-github-accent/90 text-white font-semibold animate-pulse-subtle"
-              onClick={scrollToDownload}
+              asChild
             >
-              Download Now
+              <Link to="/download">Download Now</Link>
             </Button>
             <Button 
               variant="outline" 
               size="lg"
               className="border-github-border text-github-text hover:bg-github-border/30 hover:text-white"
-              onClick={scrollToFeatures}
+              asChild
             >
-              Explore Features
+              <Link to="/features">Explore Features</Link>
             </Button>
           </div>
         </div>
       </div>
 
       <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
-        <button 
-          onClick={scrollToFeatures}
-          className="text-github-muted hover:text-white transition-colors"
-          aria-label="Scroll down"
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-github-muted hover:text-white transition-colors hover:bg-transparent"
+          asChild
         >
-          <ChevronDown size={32} />
-        </button>
+          <Link to="/features" aria-label="Scroll to features">
+            <ChevronDown size={32} />
+          </Link>
+        </Button>
       </div>
     </section>
   );

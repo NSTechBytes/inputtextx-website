@@ -1,19 +1,22 @@
 
 import { useEffect } from 'react';
 import Header from '@/components/Header';
-import Hero from '@/components/Hero';
+import Features from '@/components/Features';
 import Footer from '@/components/Footer';
 
-const Index = () => {
+const FeaturesPage = () => {
   useEffect(() => {
     // Update the document title
-    document.title = "InputTextX | Custom Input Overlay for Rainmeter";
+    document.title = "Features | InputTextX";
     
     // Add meta description for SEO
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute("content", "InputTextX is a powerful Rainmeter plugin for creating customizable input overlays on your desktop. Enhance your Rainmeter setup with dynamic input handling.");
+      metaDescription.setAttribute("content", "Explore the powerful features of InputTextX, the custom input overlay plugin for Rainmeter.");
     }
+
+    // Scroll to top when page loads
+    window.scrollTo(0, 0);
 
     // Reveal animation for elements when they come into view
     const observer = new IntersectionObserver((entries) => {
@@ -37,12 +40,12 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow">
-        <Hero />
+      <main className="flex-grow pt-16">
+        <Features />
       </main>
       <Footer />
     </div>
   );
 };
 
-export default Index;
+export default FeaturesPage;
