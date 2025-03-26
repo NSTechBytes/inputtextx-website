@@ -28,15 +28,19 @@ const Contact = () => {
     setIsSubmitting(true);
     
     // Initialize EmailJS
-    emailjs.init("_MEtUe82K5jtpJSGz");
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
     
     // Send email using EmailJS
-    emailjs.send("service_43un05n", "template_k34ftbx", {
-      name: formData.name,
-      email: formData.email,
-      subject: formData.subject,
-      message: formData.message,
-    })
+    emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID, 
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID, 
+      {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      }
+    )
     .then((response) => {
       console.log("Email sent successfully:", response);
       toast({

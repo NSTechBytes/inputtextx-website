@@ -2,73 +2,101 @@
 import { 
   Palette, 
   Terminal, 
-  RefreshCw, 
   Type, 
-  Clock, 
   Shield, 
   Zap, 
-  Box
+  Settings,
+  Filter,
+  Code,
+  LayoutGrid,
+  Layers,
+  Wrench
 } from 'lucide-react';
-
-interface FeatureCardProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}
-
-const FeatureCard = ({ icon, title, description }: FeatureCardProps) => {
-  return (
-    <div className="glass rounded-lg p-6 card-hover bg-github-darker hover:bg-github-darker/70 border border-github-border">
-      <div className="h-12 w-12 rounded-full bg-github-highlight/10 flex items-center justify-center mb-4 text-github-highlight">
-        {icon}
-      </div>
-      <h3 className="text-xl font-semibold mb-2 text-white">{title}</h3>
-      <p className="text-github-muted">{description}</p>
-    </div>
-  );
-};
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 const Features = () => {
-  const features = [
+  const featureCategories = [
     {
-      icon: <Palette size={24} />,
       title: "Customizable Appearance",
-      description: "Fully customize font styles, colors, borders, and backgrounds to match your desktop theme."
+      icon: <Palette size={24} />,
+      description: "Full control over how the input overlay looks and feels",
+      features: [
+        "Adjustable width, height, and position of the overlay window",
+        "Customizable background and optional borders with configurable color and thickness",
+        "Font settings including font face, size, style, and text alignment"
+      ]
     },
     {
-      icon: <Terminal size={24} />,
-      title: "Dynamic Input Handling",
-      description: "Capture and display user input with real-time updates and custom formatting options."
-    },
-    {
+      title: "Input Behavior",
       icon: <Type size={24} />,
-      title: "Placeholder Replacement",
-      description: "Set custom placeholder text that updates dynamically based on user interaction."
+      description: "Flexible input handling for different use cases",
+      features: [
+        "Supports both single-line and multiline input",
+        "Option to enable or disable scroll bars in multiline mode",
+        "Password mode for masking input"
+      ]
     },
     {
-      icon: <RefreshCw size={24} />,
-      title: "Real-time Updates",
-      description: "Seamlessly updates as you type, with configurable update intervals for optimal performance."
+      title: "Input Filtering & Validation",
+      icon: <Filter size={24} />,
+      description: "Ensure data integrity with comprehensive validation options",
+      features: [
+        "Multiple input types supported: String, Integer, Float, Letters, Alphanumeric, Hexadecimal, Email, and Custom",
+        "Filters keystrokes in real time to prevent invalid characters",
+        "Numeric input validation ensures values remain within defined limits"
+      ]
     },
     {
-      icon: <Clock size={24} />,
-      title: "Input History",
-      description: "Maintain a history of recent inputs with configurable history size and persistence."
+      title: "Dynamic Command Execution",
+      icon: <Terminal size={24} />,
+      description: "Trigger Rainmeter actions based on user input and interactions",
+      features: [
+        "Execute commands when user submits input (OnEnterAction)",
+        "Trigger actions when user cancels input (OnESCAction)",
+        "Run commands when input overlay loses focus (OnDismissAction)",
+        "Dynamic placeholder substitution with $UserInput$"
+      ]
     },
     {
-      icon: <Shield size={24} />,
-      title: "Input Validation",
-      description: "Configure input validation rules to ensure data integrity and format consistency."
+      title: "Logging and Debugging",
+      icon: <Code size={24} />,
+      description: "Powerful troubleshooting capabilities",
+      features: [
+        "Conditional logging outputs detailed messages for actions",
+        "Track command strings, errors, and overall flow",
+        "Helpful for debugging and monitoring plugin behavior"
+      ]
     },
     {
+      title: "Rainmeter Integration",
+      icon: <Layers size={24} />,
+      description: "Seamless integration with the Rainmeter ecosystem",
+      features: [
+        "Interfaces directly with the Rainmeter API for command execution",
+        "Manages skin window interaction automatically",
+        "Disables underlying skin when overlay is active to avoid conflicts"
+      ]
+    },
+    {
+      title: "Threading and Performance",
       icon: <Zap size={24} />,
-      title: "Lightweight Performance",
-      description: "Minimal resource usage with optimized code ensures smooth performance on any system."
+      description: "Optimized for stability and responsiveness",
+      features: [
+        "Runs on a dedicated Single-Threaded Apartment (STA) thread",
+        "No timer-based manual updates for better performance",
+        "Reduces potential resource overhead"
+      ]
     },
     {
-      icon: <Box size={24} />,
-      title: "Extensive Integration",
-      description: "Easily integrate with other Rainmeter skins and plugins for a cohesive desktop experience."
+      title: "Advanced Configuration",
+      icon: <Settings size={24} />,
+      description: "Extensive customization options for power users",
+      features: [
+        "Fine-grained control over appearance and behavior",
+        "Multiple input validation strategies",
+        "Flexible positioning and sizing"
+      ]
     }
   ];
 
@@ -84,16 +112,105 @@ const Features = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, index) => (
-            <div key={index} className="opacity-0 animate-fade-in" style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }}>
-              <FeatureCard 
-                icon={feature.icon}
-                title={feature.title}
-                description={feature.description}
-              />
+        <div className="mb-12">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {featureCategories.map((category, index) => (
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Card className="glass bg-github-darker/50 border-github-border hover:bg-github-darker/70 transition-colors">
+                      <CardHeader>
+                        <div className="h-12 w-12 rounded-full bg-github-highlight/10 flex items-center justify-center mb-4 text-github-highlight">
+                          {category.icon}
+                        </div>
+                        <CardTitle className="text-xl font-semibold text-white">{category.title}</CardTitle>
+                        <CardDescription className="text-github-muted">{category.description}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <ul className="list-disc pl-5 space-y-2 text-github-muted">
+                          {category.features.map((feature, featureIndex) => (
+                            <li key={featureIndex}>{feature}</li>
+                          ))}
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
+        
+        <div className="grid grid-cols-1 gap-8 max-w-3xl mx-auto">
+          <div className="glass p-8 rounded-lg border border-github-border bg-github-darker/50">
+            <h3 className="text-2xl font-bold mb-4 text-white flex items-center">
+              <Wrench className="mr-2 text-github-highlight" /> Configuration Options
+            </h3>
+            <p className="text-github-muted mb-4">
+              InputTextX provides extensive configuration options to customize the input overlay to your exact requirements.
+              Below is a table showing the key configuration parameters with their default values:
+            </p>
+            
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="bg-github-border/30">
+                    <th className="p-2 text-left text-github-highlight border border-github-border">Key</th>
+                    <th className="p-2 text-left text-github-highlight border border-github-border">Description</th>
+                    <th className="p-2 text-left text-github-highlight border border-github-border">Type</th>
+                    <th className="p-2 text-left text-github-highlight border border-github-border">Default</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="p-2 border border-github-border text-white">W</td>
+                    <td className="p-2 border border-github-border text-github-muted">Width of the input overlay</td>
+                    <td className="p-2 border border-github-border text-github-muted">Integer</td>
+                    <td className="p-2 border border-github-border text-github-muted">300</td>
+                  </tr>
+                  <tr>
+                    <td className="p-2 border border-github-border text-white">H</td>
+                    <td className="p-2 border border-github-border text-github-muted">Height of the input overlay</td>
+                    <td className="p-2 border border-github-border text-github-muted">Integer</td>
+                    <td className="p-2 border border-github-border text-github-muted">40</td>
+                  </tr>
+                  <tr>
+                    <td className="p-2 border border-github-border text-white">SolidColor</td>
+                    <td className="p-2 border border-github-border text-github-muted">Background color in R,G,B format</td>
+                    <td className="p-2 border border-github-border text-github-muted">Color</td>
+                    <td className="p-2 border border-github-border text-github-muted">255,255,255</td>
+                  </tr>
+                  <tr>
+                    <td className="p-2 border border-github-border text-white">FontColor</td>
+                    <td className="p-2 border border-github-border text-github-muted">Text color in R,G,B format</td>
+                    <td className="p-2 border border-github-border text-github-muted">Color</td>
+                    <td className="p-2 border border-github-border text-github-muted">0,0,0</td>
+                  </tr>
+                  <tr>
+                    <td className="p-2 border border-github-border text-white">FontSize</td>
+                    <td className="p-2 border border-github-border text-github-muted">Font size for text input</td>
+                    <td className="p-2 border border-github-border text-github-muted">Float</td>
+                    <td className="p-2 border border-github-border text-github-muted">12</td>
+                  </tr>
+                  <tr>
+                    <td className="p-2 border border-github-border text-white">Align</td>
+                    <td className="p-2 border border-github-border text-github-muted">Text alignment (Left, Center, or Right)</td>
+                    <td className="p-2 border border-github-border text-github-muted">String</td>
+                    <td className="p-2 border border-github-border text-github-muted">Center</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          ))}
+            <p className="mt-4 text-github-muted text-sm">
+              See the documentation for the complete list of configuration options.
+            </p>
+          </div>
         </div>
       </div>
     </section>
