@@ -12,12 +12,20 @@ import {
   Layers,
   Wrench
 } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const Features = () => {
   const featureCategories = [
     {
+      id: "appearance",
       title: "Customizable Appearance",
       icon: <Palette size={24} />,
       description: "Full control over how the input overlay looks and feels",
@@ -28,6 +36,7 @@ const Features = () => {
       ]
     },
     {
+      id: "behavior",
       title: "Input Behavior",
       icon: <Type size={24} />,
       description: "Flexible input handling for different use cases",
@@ -38,6 +47,7 @@ const Features = () => {
       ]
     },
     {
+      id: "validation",
       title: "Input Filtering & Validation",
       icon: <Filter size={24} />,
       description: "Ensure data integrity with comprehensive validation options",
@@ -48,6 +58,7 @@ const Features = () => {
       ]
     },
     {
+      id: "commands",
       title: "Dynamic Command Execution",
       icon: <Terminal size={24} />,
       description: "Trigger Rainmeter actions based on user input and interactions",
@@ -59,6 +70,7 @@ const Features = () => {
       ]
     },
     {
+      id: "logging",
       title: "Logging and Debugging",
       icon: <Code size={24} />,
       description: "Powerful troubleshooting capabilities",
@@ -69,6 +81,7 @@ const Features = () => {
       ]
     },
     {
+      id: "integration",
       title: "Rainmeter Integration",
       icon: <Layers size={24} />,
       description: "Seamless integration with the Rainmeter ecosystem",
@@ -79,6 +92,7 @@ const Features = () => {
       ]
     },
     {
+      id: "performance",
       title: "Threading and Performance",
       icon: <Zap size={24} />,
       description: "Optimized for stability and responsiveness",
@@ -89,6 +103,7 @@ const Features = () => {
       ]
     },
     {
+      id: "advanced",
       title: "Advanced Configuration",
       icon: <Settings size={24} />,
       description: "Extensive customization options for power users",
@@ -98,6 +113,37 @@ const Features = () => {
         "Flexible positioning and sizing"
       ]
     }
+  ];
+
+  const configOptions = [
+    { key: "W", description: "Width of the input overlay", type: "Integer", defaultValue: "300" },
+    { key: "H", description: "Height of the input overlay", type: "Integer", defaultValue: "40" },
+    { key: "SolidColor", description: "Background color in R,G,B format", type: "Color", defaultValue: "255,255,255" },
+    { key: "FontColor", description: "Text color in R,G,B format", type: "Color", defaultValue: "0,0,0" },
+    { key: "FontSize", description: "Font size for text input", type: "Float", defaultValue: "12" },
+    { key: "Align", description: "Text alignment (Left, Center, or Right)", type: "String", defaultValue: "Center" },
+    { key: "Password", description: "If set to 1, input will be masked", type: "Integer", defaultValue: "0" },
+    { key: "FontStyle", description: "Font style (Normal, Bold, Italic, or BoldItalic)", type: "String", defaultValue: "Normal" },
+    { key: "FontFace", description: "Name or path to the font file", type: "String", defaultValue: "Segoe UI" },
+    { key: "Multiline", description: "If set to 1, allows multiline input", type: "Integer", defaultValue: "0" },
+    { key: "AllowScroll", description: "If set to 1, enables vertical scroll for multiline input", type: "Integer", defaultValue: "0" },
+    { key: "InputLimit", description: "Maximum number of characters allowed", type: "Integer", defaultValue: "0 (no limit)" },
+    { key: "DefaultValue", description: "Initial text in the input box", type: "String", defaultValue: "Empty" },
+    { key: "InputType", description: "Type of allowed input (see list below)", type: "String", defaultValue: "String" },
+    { key: "AllowedChars", description: "For InputType=Custom, characters allowed", type: "String", defaultValue: "Empty" },
+    { key: "OnDismissAction", description: "Rainmeter command executed when the input overlay loses focus", type: "String", defaultValue: "Empty" },
+    { key: "OnEnterAction", description: "Rainmeter command executed on pressing Enter", type: "String", defaultValue: "Empty" },
+    { key: "OnESCAction", description: "Rainmeter command executed on pressing Escape", type: "String", defaultValue: "Empty" },
+    { key: "InValidAction", description: "Command executed when invalid input is detected", type: "String", defaultValue: "Empty" },
+    { key: "X", description: "Horizontal offset for the overlay relative to the skin", type: "Integer", defaultValue: "20" },
+    { key: "Y", description: "Vertical offset for the overlay relative to the skin", type: "Integer", defaultValue: "20" },
+    { key: "AllowBorder", description: "If set to 1, a border will be drawn around the input box", type: "Integer", defaultValue: "0" },
+    { key: "BorderColor", description: "Border color in R,G,B format", type: "Color", defaultValue: "0,0,0" },
+    { key: "BorderThickness", description: "Thickness of the border in pixels", type: "Integer", defaultValue: "2" },
+    { key: "MinValue", description: "Minimum numeric value (for Integer/Float types)", type: "Double", defaultValue: "double.MinValue" },
+    { key: "MaxValue", description: "Maximum numeric value (for Integer/Float types)", type: "Double", defaultValue: "double.MaxValue" },
+    { key: "TopMost", description: "If set to 1, the overlay is displayed on top of other windows", type: "Integer", defaultValue: "1" },
+    { key: "Logging", description: "If set to 1, detailed log messages will be printed to the Rainmeter log", type: "Integer", defaultValue: "0" }
   ];
 
   return (
@@ -112,105 +158,181 @@ const Features = () => {
           </p>
         </div>
         
-        <div className="mb-12">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent>
-              {featureCategories.map((category, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-1">
-                    <Card className="glass bg-github-darker/50 border-github-border hover:bg-github-darker/70 transition-colors">
-                      <CardHeader>
-                        <div className="h-12 w-12 rounded-full bg-github-highlight/10 flex items-center justify-center mb-4 text-github-highlight">
-                          {category.icon}
-                        </div>
-                        <CardTitle className="text-xl font-semibold text-white">{category.title}</CardTitle>
-                        <CardDescription className="text-github-muted">{category.description}</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="list-disc pl-5 space-y-2 text-github-muted">
-                          {category.features.map((feature, featureIndex) => (
-                            <li key={featureIndex}>{feature}</li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+          {featureCategories.map((category) => (
+            <div 
+              key={category.id}
+              className="reveal flex space-x-6 p-6 rounded-lg border border-github-border bg-github-darker/20 hover:bg-github-darker/40 transition-colors"
+            >
+              <div className="min-w-12 h-12 rounded-full bg-github-highlight/10 flex items-center justify-center text-github-highlight shrink-0">
+                {category.icon}
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-2">{category.title}</h3>
+                <p className="text-github-muted mb-4">{category.description}</p>
+                <ul className="list-disc pl-5 space-y-2 text-github-muted">
+                  {category.features.map((feature, index) => (
+                    <li key={index}>{feature}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
         </div>
         
-        <div className="grid grid-cols-1 gap-8 max-w-3xl mx-auto">
-          <div className="glass p-8 rounded-lg border border-github-border bg-github-darker/50">
-            <h3 className="text-2xl font-bold mb-4 text-white flex items-center">
-              <Wrench className="mr-2 text-github-highlight" /> Configuration Options
-            </h3>
-            <p className="text-github-muted mb-4">
-              InputTextX provides extensive configuration options to customize the input overlay to your exact requirements.
-              Below is a table showing the key configuration parameters with their default values:
-            </p>
-            
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr className="bg-github-border/30">
-                    <th className="p-2 text-left text-github-highlight border border-github-border">Key</th>
-                    <th className="p-2 text-left text-github-highlight border border-github-border">Description</th>
-                    <th className="p-2 text-left text-github-highlight border border-github-border">Type</th>
-                    <th className="p-2 text-left text-github-highlight border border-github-border">Default</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="p-2 border border-github-border text-white">W</td>
-                    <td className="p-2 border border-github-border text-github-muted">Width of the input overlay</td>
-                    <td className="p-2 border border-github-border text-github-muted">Integer</td>
-                    <td className="p-2 border border-github-border text-github-muted">300</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 border border-github-border text-white">H</td>
-                    <td className="p-2 border border-github-border text-github-muted">Height of the input overlay</td>
-                    <td className="p-2 border border-github-border text-github-muted">Integer</td>
-                    <td className="p-2 border border-github-border text-github-muted">40</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 border border-github-border text-white">SolidColor</td>
-                    <td className="p-2 border border-github-border text-github-muted">Background color in R,G,B format</td>
-                    <td className="p-2 border border-github-border text-github-muted">Color</td>
-                    <td className="p-2 border border-github-border text-github-muted">255,255,255</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 border border-github-border text-white">FontColor</td>
-                    <td className="p-2 border border-github-border text-github-muted">Text color in R,G,B format</td>
-                    <td className="p-2 border border-github-border text-github-muted">Color</td>
-                    <td className="p-2 border border-github-border text-github-muted">0,0,0</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 border border-github-border text-white">FontSize</td>
-                    <td className="p-2 border border-github-border text-github-muted">Font size for text input</td>
-                    <td className="p-2 border border-github-border text-github-muted">Float</td>
-                    <td className="p-2 border border-github-border text-github-muted">12</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 border border-github-border text-white">Align</td>
-                    <td className="p-2 border border-github-border text-github-muted">Text alignment (Left, Center, or Right)</td>
-                    <td className="p-2 border border-github-border text-github-muted">String</td>
-                    <td className="p-2 border border-github-border text-github-muted">Center</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p className="mt-4 text-github-muted text-sm">
-              See the documentation for the complete list of configuration options.
-            </p>
-          </div>
+        <div className="glass p-8 rounded-lg border border-github-border bg-github-darker/50 mb-16">
+          <h3 className="text-2xl font-bold mb-4 text-white flex items-center">
+            <Wrench className="mr-2 text-github-highlight" /> Configuration Options
+          </h3>
+          <Tabs defaultValue="all" className="w-full">
+            <TabsList className="flex justify-center mb-6 bg-github-darker/50 overflow-x-auto">
+              <TabsTrigger value="all">All Options</TabsTrigger>
+              <TabsTrigger value="appearance">Appearance</TabsTrigger>
+              <TabsTrigger value="input">Input</TabsTrigger>
+              <TabsTrigger value="actions">Actions</TabsTrigger>
+              <TabsTrigger value="advanced">Advanced</TabsTrigger>
+            </TabsList>
+            <TabsContent value="all" className="space-y-4">
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-github-border/30">
+                      <TableHead className="text-left text-github-highlight">Key</TableHead>
+                      <TableHead className="text-left text-github-highlight">Description</TableHead>
+                      <TableHead className="text-left text-github-highlight">Type</TableHead>
+                      <TableHead className="text-left text-github-highlight">Default</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {configOptions.map((option, index) => (
+                      <TableRow key={index} className="border-github-border hover:bg-github-darker/40">
+                        <TableCell className="text-white font-mono">{option.key}</TableCell>
+                        <TableCell className="text-github-muted">{option.description}</TableCell>
+                        <TableCell className="text-github-muted">{option.type}</TableCell>
+                        <TableCell className="text-github-muted font-mono">{option.defaultValue}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </TabsContent>
+            <TabsContent value="appearance" className="space-y-4">
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-github-border/30">
+                      <TableHead className="text-left text-github-highlight">Key</TableHead>
+                      <TableHead className="text-left text-github-highlight">Description</TableHead>
+                      <TableHead className="text-left text-github-highlight">Type</TableHead>
+                      <TableHead className="text-left text-github-highlight">Default</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {configOptions
+                      .filter(option => 
+                        ['W', 'H', 'SolidColor', 'FontColor', 'FontSize', 'Align', 'FontStyle', 'FontFace', 'X', 'Y', 'AllowBorder', 'BorderColor', 'BorderThickness'].includes(option.key)
+                      )
+                      .map((option, index) => (
+                        <TableRow key={index} className="border-github-border hover:bg-github-darker/40">
+                          <TableCell className="text-white font-mono">{option.key}</TableCell>
+                          <TableCell className="text-github-muted">{option.description}</TableCell>
+                          <TableCell className="text-github-muted">{option.type}</TableCell>
+                          <TableCell className="text-github-muted font-mono">{option.defaultValue}</TableCell>
+                        </TableRow>
+                      ))
+                    }
+                  </TableBody>
+                </Table>
+              </div>
+            </TabsContent>
+            <TabsContent value="input" className="space-y-4">
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-github-border/30">
+                      <TableHead className="text-left text-github-highlight">Key</TableHead>
+                      <TableHead className="text-left text-github-highlight">Description</TableHead>
+                      <TableHead className="text-left text-github-highlight">Type</TableHead>
+                      <TableHead className="text-left text-github-highlight">Default</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {configOptions
+                      .filter(option => 
+                        ['Password', 'Multiline', 'AllowScroll', 'InputLimit', 'DefaultValue', 'InputType', 'AllowedChars', 'MinValue', 'MaxValue'].includes(option.key)
+                      )
+                      .map((option, index) => (
+                        <TableRow key={index} className="border-github-border hover:bg-github-darker/40">
+                          <TableCell className="text-white font-mono">{option.key}</TableCell>
+                          <TableCell className="text-github-muted">{option.description}</TableCell>
+                          <TableCell className="text-github-muted">{option.type}</TableCell>
+                          <TableCell className="text-github-muted font-mono">{option.defaultValue}</TableCell>
+                        </TableRow>
+                      ))
+                    }
+                  </TableBody>
+                </Table>
+              </div>
+            </TabsContent>
+            <TabsContent value="actions" className="space-y-4">
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-github-border/30">
+                      <TableHead className="text-left text-github-highlight">Key</TableHead>
+                      <TableHead className="text-left text-github-highlight">Description</TableHead>
+                      <TableHead className="text-left text-github-highlight">Type</TableHead>
+                      <TableHead className="text-left text-github-highlight">Default</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {configOptions
+                      .filter(option => 
+                        ['OnDismissAction', 'OnEnterAction', 'OnESCAction', 'InValidAction'].includes(option.key)
+                      )
+                      .map((option, index) => (
+                        <TableRow key={index} className="border-github-border hover:bg-github-darker/40">
+                          <TableCell className="text-white font-mono">{option.key}</TableCell>
+                          <TableCell className="text-github-muted">{option.description}</TableCell>
+                          <TableCell className="text-github-muted">{option.type}</TableCell>
+                          <TableCell className="text-github-muted font-mono">{option.defaultValue}</TableCell>
+                        </TableRow>
+                      ))
+                    }
+                  </TableBody>
+                </Table>
+              </div>
+            </TabsContent>
+            <TabsContent value="advanced" className="space-y-4">
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-github-border/30">
+                      <TableHead className="text-left text-github-highlight">Key</TableHead>
+                      <TableHead className="text-left text-github-highlight">Description</TableHead>
+                      <TableHead className="text-left text-github-highlight">Type</TableHead>
+                      <TableHead className="text-left text-github-highlight">Default</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {configOptions
+                      .filter(option => 
+                        ['TopMost', 'Logging'].includes(option.key)
+                      )
+                      .map((option, index) => (
+                        <TableRow key={index} className="border-github-border hover:bg-github-darker/40">
+                          <TableCell className="text-white font-mono">{option.key}</TableCell>
+                          <TableCell className="text-github-muted">{option.description}</TableCell>
+                          <TableCell className="text-github-muted">{option.type}</TableCell>
+                          <TableCell className="text-github-muted font-mono">{option.defaultValue}</TableCell>
+                        </TableRow>
+                      ))
+                    }
+                  </TableBody>
+                </Table>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </section>
