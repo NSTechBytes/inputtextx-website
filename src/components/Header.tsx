@@ -69,6 +69,12 @@ const Header = () => {
             >
               Download
             </Link>
+            <Link 
+              to="/contact" 
+              className={`nav-item ${isActive('/contact') ? 'text-github-highlight' : ''}`}
+            >
+              Contact
+            </Link>
             <Button variant="outline" size="sm" className="ml-4 border-github-highlight text-github-highlight hover:bg-github-highlight hover:text-white" onClick={() => window.open('https://github.com/nstechbytes/InputTextX', '_blank')}>
               <Github className="mr-2 h-4 w-4" />
               GitHub
@@ -117,6 +123,13 @@ const Header = () => {
               onClick={toggleMobileMenu}
             >
               Download
+            </Link>
+            <Link 
+              to="/contact" 
+              className={`nav-item ${isActive('/contact') ? 'text-github-highlight' : ''}`}
+              onClick={toggleMobileMenu}
+            >
+              Contact
             </Link>
             <Button 
               variant="outline" 

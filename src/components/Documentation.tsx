@@ -1,6 +1,15 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CodeBlock from './CodeBlock';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const Documentation = () => {
   const sampleCode = `[Rainmeter]
@@ -45,6 +54,37 @@ X=0
 Y=0
 DefaultValue=Click to type...
 Command1=[!Log "The user typed: $UserInput$"]`;
+
+  const configOptions = [
+    { key: "W", description: "Width of the input overlay", type: "Integer", defaultValue: "300" },
+    { key: "H", description: "Height of the input overlay", type: "Integer", defaultValue: "40" },
+    { key: "SolidColor", description: "Background color in R,G,B format", type: "Color", defaultValue: "255,255,255" },
+    { key: "FontColor", description: "Text color in R,G,B format", type: "Color", defaultValue: "0,0,0" },
+    { key: "FontSize", description: "Font size for text input", type: "Float", defaultValue: "12" },
+    { key: "Align", description: "Text alignment (`Left`, `Center`, or `Right`)", type: "String", defaultValue: "Center" },
+    { key: "Password", description: "If set to 1, input will be masked", type: "Integer", defaultValue: "0" },
+    { key: "FontStyle", description: "Font style (`Normal`, `Bold`, `Italic`, or `BoldItalic`)", type: "String", defaultValue: "Normal" },
+    { key: "FontFace", description: "Name or path to the font file", type: "String", defaultValue: "Segoe UI" },
+    { key: "Multiline", description: "If set to 1, allows multiline input", type: "Integer", defaultValue: "0" },
+    { key: "AllowScroll", description: "If set to 1, enables vertical scroll for multiline input", type: "Integer", defaultValue: "0" },
+    { key: "InputLimit", description: "Maximum number of characters allowed", type: "Integer", defaultValue: "0 (no limit)" },
+    { key: "DefaultValue", description: "Initial text in the input box", type: "String", defaultValue: "Empty" },
+    { key: "InputType", description: "Type of allowed input (see list below)", type: "String", defaultValue: "String" },
+    { key: "AllowedChars", description: "For InputType=Custom, characters allowed", type: "String", defaultValue: "Empty" },
+    { key: "OnDismissAction", description: "Rainmeter command executed when the input overlay loses focus", type: "String", defaultValue: "Empty" },
+    { key: "OnEnterAction", description: "Rainmeter command executed on pressing Enter", type: "String", defaultValue: "Empty" },
+    { key: "OnESCAction", description: "Rainmeter command executed on pressing Escape", type: "String", defaultValue: "Empty" },
+    { key: "InValidAction", description: "Command executed when invalid input is detected", type: "String", defaultValue: "Empty" },
+    { key: "X", description: "Horizontal offset for the overlay relative to the skin", type: "Integer", defaultValue: "20" },
+    { key: "Y", description: "Vertical offset for the overlay relative to the skin", type: "Integer", defaultValue: "20" },
+    { key: "AllowBorder", description: "If set to 1, a border will be drawn around the input box", type: "Integer", defaultValue: "0" },
+    { key: "BorderColor", description: "Border color in R,G,B format", type: "Color", defaultValue: "0,0,0" },
+    { key: "BorderThickness", description: "Thickness of the border in pixels", type: "Integer", defaultValue: "2" },
+    { key: "MinValue", description: "Minimum numeric value (for Integer/Float types)", type: "Double", defaultValue: "double.MinValue" },
+    { key: "MaxValue", description: "Maximum numeric value (for Integer/Float types)", type: "Double", defaultValue: "double.MaxValue" },
+    { key: "TopMost", description: "If set to 1, the overlay is displayed on top of other windows", type: "Integer", defaultValue: "1" },
+    { key: "Logging", description: "If set to 1, detailed log messages will be printed to the Rainmeter log", type: "Integer", defaultValue: "0" }
+  ];
 
   return (
     <section id="documentation" className="section-padding bg-gradient-to-b from-github-dark to-github-darker relative">
@@ -158,82 +198,29 @@ DefaultValue=Styled input field...`}
               </div>
 
               <div className="overflow-x-auto">
-                <table className="w-full border-collapse">
-                  <thead>
-                    <tr className="bg-github-darker border-b border-github-border">
-                      <th className="px-4 py-3 text-left text-sm font-medium text-github-text">Option</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-github-text">Description</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-github-text">Default</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-github-border">
-                    <tr className="hover:bg-github-darker/50">
-                      <td className="px-4 py-3 text-sm font-medium text-github-highlight">FontFace</td>
-                      <td className="px-4 py-3 text-sm text-github-text">The font used for the input text</td>
-                      <td className="px-4 py-3 text-sm text-github-muted">Segoe UI</td>
-                    </tr>
-                    <tr className="hover:bg-github-darker/50">
-                      <td className="px-4 py-3 text-sm font-medium text-github-highlight">FontSize</td>
-                      <td className="px-4 py-3 text-sm text-github-text">Size of the font in points</td>
-                      <td className="px-4 py-3 text-sm text-github-muted">10</td>
-                    </tr>
-                    <tr className="hover:bg-github-darker/50">
-                      <td className="px-4 py-3 text-sm font-medium text-github-highlight">FontColor</td>
-                      <td className="px-4 py-3 text-sm text-github-text">Color of the text (R,G,B,A format)</td>
-                      <td className="px-4 py-3 text-sm text-github-muted">255,255,255,255</td>
-                    </tr>
-                    <tr className="hover:bg-github-darker/50">
-                      <td className="px-4 py-3 text-sm font-medium text-github-highlight">SolidColor</td>
-                      <td className="px-4 py-3 text-sm text-github-text">Background color (R,G,B,A format)</td>
-                      <td className="px-4 py-3 text-sm text-github-muted">0,0,0,0</td>
-                    </tr>
-                    <tr className="hover:bg-github-darker/50">
-                      <td className="px-4 py-3 text-sm font-medium text-github-highlight">StringStyle</td>
-                      <td className="px-4 py-3 text-sm text-github-text">Text style (Normal, Bold, Italic, etc.)</td>
-                      <td className="px-4 py-3 text-sm text-github-muted">Normal</td>
-                    </tr>
-                    <tr className="hover:bg-github-darker/50">
-                      <td className="px-4 py-3 text-sm font-medium text-github-highlight">StringAlign</td>
-                      <td className="px-4 py-3 text-sm text-github-text">Text alignment (Left, Center, Right)</td>
-                      <td className="px-4 py-3 text-sm text-github-muted">Left</td>
-                    </tr>
-                    <tr className="hover:bg-github-darker/50">
-                      <td className="px-4 py-3 text-sm font-medium text-github-highlight">X, Y</td>
-                      <td className="px-4 py-3 text-sm text-github-text">Position coordinates</td>
-                      <td className="px-4 py-3 text-sm text-github-muted">0, 0</td>
-                    </tr>
-                    <tr className="hover:bg-github-darker/50">
-                      <td className="px-4 py-3 text-sm font-medium text-github-highlight">W, H</td>
-                      <td className="px-4 py-3 text-sm text-github-text">Width and height of the input field</td>
-                      <td className="px-4 py-3 text-sm text-github-muted">100, 20</td>
-                    </tr>
-                    <tr className="hover:bg-github-darker/50">
-                      <td className="px-4 py-3 text-sm font-medium text-github-highlight">DefaultValue</td>
-                      <td className="px-4 py-3 text-sm text-github-text">Default text shown in the input field</td>
-                      <td className="px-4 py-3 text-sm text-github-muted">""</td>
-                    </tr>
-                    <tr className="hover:bg-github-darker/50">
-                      <td className="px-4 py-3 text-sm font-medium text-github-highlight">Password</td>
-                      <td className="px-4 py-3 text-sm text-github-text">When set to 1, masks input with asterisks</td>
-                      <td className="px-4 py-3 text-sm text-github-muted">0</td>
-                    </tr>
-                    <tr className="hover:bg-github-darker/50">
-                      <td className="px-4 py-3 text-sm font-medium text-github-highlight">Command1...Command10</td>
-                      <td className="px-4 py-3 text-sm text-github-text">Actions to execute when input is submitted</td>
-                      <td className="px-4 py-3 text-sm text-github-muted">None</td>
-                    </tr>
-                    <tr className="hover:bg-github-darker/50">
-                      <td className="px-4 py-3 text-sm font-medium text-github-highlight">FocusDismiss</td>
-                      <td className="px-4 py-3 text-sm text-github-text">When set to 1, dismisses input when focus is lost</td>
-                      <td className="px-4 py-3 text-sm text-github-muted">0</td>
-                    </tr>
-                    <tr className="hover:bg-github-darker/50">
-                      <td className="px-4 py-3 text-sm font-medium text-github-highlight">AntiAlias</td>
-                      <td className="px-4 py-3 text-sm text-github-text">Enables text anti-aliasing when set to 1</td>
-                      <td className="px-4 py-3 text-sm text-github-muted">1</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-github-darker/70 hover:bg-github-darker/90">
+                      <TableHead className="font-semibold text-github-text">Key</TableHead>
+                      <TableHead className="font-semibold text-github-text">Description</TableHead>
+                      <TableHead className="font-semibold text-github-text">Type</TableHead>
+                      <TableHead className="font-semibold text-github-text">Default</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {configOptions.map((option, index) => (
+                      <TableRow 
+                        key={index}
+                        className={index % 2 === 0 ? "bg-transparent hover:bg-github-darker/50" : "bg-github-darker/20 hover:bg-github-darker/50"}
+                      >
+                        <TableCell className="font-medium text-github-highlight">{option.key}</TableCell>
+                        <TableCell className="text-github-text">{option.description}</TableCell>
+                        <TableCell className="text-github-muted">{option.type}</TableCell>
+                        <TableCell className="text-github-muted">{option.defaultValue}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </div>
             </TabsContent>
           </Tabs>
