@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import Header from '@/components/Header';
 import Features from '@/components/Features';
-import Footer from '@/components/Footer';
 
 const FeaturesPage = () => {
   useEffect(() => {
@@ -12,7 +11,7 @@ const FeaturesPage = () => {
     // Add meta description for SEO
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute("content", "Explore the powerful features of InputTextX, the custom input overlay plugin for Rainmeter.");
+      metaDescription.setAttribute("content", "Explore the powerful features of InputTextX, the Rainmeter custom input overlay plugin. Learn about customization options, dynamic input handling, and more.");
     }
 
     // Scroll to top when page loads
@@ -43,7 +42,6 @@ const FeaturesPage = () => {
       <main className="flex-grow pt-16">
         <Features />
       </main>
-      <Footer />
     </div>
   );
 };

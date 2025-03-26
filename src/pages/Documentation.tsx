@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import Header from '@/components/Header';
 import Documentation from '@/components/Documentation';
-import Footer from '@/components/Footer';
 
 const DocumentationPage = () => {
   useEffect(() => {
@@ -12,7 +11,7 @@ const DocumentationPage = () => {
     // Add meta description for SEO
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute("content", "Detailed documentation and guides for using InputTextX, the Rainmeter custom input overlay plugin.");
+      metaDescription.setAttribute("content", "Complete documentation for InputTextX, the Rainmeter custom input overlay plugin. Learn how to install, configure, and customize your input overlays.");
     }
 
     // Scroll to top when page loads
@@ -43,7 +42,6 @@ const DocumentationPage = () => {
       <main className="flex-grow pt-16">
         <Documentation />
       </main>
-      <Footer />
     </div>
   );
 };

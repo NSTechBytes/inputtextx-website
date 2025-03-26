@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import Header from '@/components/Header';
 import Download from '@/components/Download';
-import Footer from '@/components/Footer';
 
 const DownloadPage = () => {
   useEffect(() => {
@@ -43,7 +42,6 @@ const DownloadPage = () => {
       <main className="flex-grow pt-16">
         <Download />
       </main>
-      <Footer />
     </div>
   );
 };

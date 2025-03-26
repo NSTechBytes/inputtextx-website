@@ -49,6 +49,26 @@ const Download = () => {
                     <Github className="mr-2 h-5 w-5" />
                     View on GitHub
                   </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    size="lg"
+                    className="w-full border-github-border text-github-text hover:bg-github-border/30 hover:text-white"
+                    onClick={() => window.open('https://github.com/nstechbytes/InputTextX/archive/refs/heads/main.zip', '_blank')}
+                  >
+                    <DownloadIcon className="mr-2 h-5 w-5" />
+                    Download Source Code
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    size="lg"
+                    className="w-full border-github-border text-github-text hover:bg-github-border/30 hover:text-white"
+                    onClick={() => window.open('https://github.com/nstechbytes/InputTextX/releases/download/v1.0.0/ExampleSkins.zip', '_blank')}
+                  >
+                    <DownloadIcon className="mr-2 h-5 w-5" />
+                    Download Example Skins
+                  </Button>
                 </div>
               </div>
               

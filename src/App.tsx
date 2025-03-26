@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import FeaturesPage from "./pages/Features";
 import DocumentationPage from "./pages/Documentation";
-import FAQPage from "./pages/FAQ";
 import DownloadPage from "./pages/Download";
 import NotFound from "./pages/NotFound";
 
@@ -23,7 +22,6 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/features" element={<FeaturesPage />} />
           <Route path="/documentation" element={<DocumentationPage />} />
-          <Route path="/faq" element={<FAQPage />} />
           <Route path="/download" element={<DownloadPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

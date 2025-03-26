@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import Footer from '@/components/Footer';
 
 const Index = () => {
   useEffect(() => {
@@ -40,7 +39,6 @@ const Index = () => {
       <main className="flex-grow">
         <Hero />
       </main>
-      <Footer />
     </div>
   );
 };
