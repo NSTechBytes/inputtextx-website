@@ -1,13 +1,15 @@
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
-import { Contact as ContactIcon } from 'lucide-react';
+import { Contact as ContactIcon, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,8 +27,18 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
+    // Initialize EmailJS
+    emailjs.init("_MEtUe82K5jtpJSGz");
+    
+    // Send email using EmailJS
+    emailjs.send("service_43un05n", "template_k34ftbx", {
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+    })
+    .then((response) => {
+      console.log("Email sent successfully:", response);
       toast({
         title: "Message Sent",
         description: "Thank you for your message. We'll get back to you soon!",
@@ -40,7 +52,16 @@ const Contact = () => {
         message: ''
       });
       setIsSubmitting(false);
-    }, 1500);
+    })
+    .catch((error) => {
+      console.error("Email sending failed:", error);
+      toast({
+        title: "Message Failed",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive"
+      });
+      setIsSubmitting(false);
+    });
   };
 
   return (
@@ -60,7 +81,7 @@ const Contact = () => {
             </div>
           </div>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label htmlFor="name" className="text-sm font-medium text-github-text">
@@ -129,7 +150,12 @@ const Contact = () => {
               disabled={isSubmitting}
               className="w-full bg-github-highlight hover:bg-github-highlight/90 text-white"
             >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Sending...
+                </>
+              ) : 'Send Message'}
             </Button>
           </form>
         </div>
