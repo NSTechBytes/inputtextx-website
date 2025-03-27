@@ -10,6 +10,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Info, AlertTriangle } from "lucide-react";
 
 const Documentation = () => {
   const sampleCode = `[Rainmeter]
@@ -98,7 +100,7 @@ Command1=[!Log "The user typed: $UserInput$"]`;
 
         <div className="max-w-4xl mx-auto">
           <Tabs defaultValue="installation" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-8 bg-github-darker border border-github-border">
+            <TabsList className="grid w-full grid-cols-3 mb-8 bg-github-darker border border-github-border rounded-md">
               <TabsTrigger value="installation">Installation</TabsTrigger>
               <TabsTrigger value="configuration">Configuration</TabsTrigger>
               <TabsTrigger value="options">Options Reference</TabsTrigger>
@@ -224,6 +226,32 @@ DefaultValue=Styled input field...`}
               </div>
             </TabsContent>
           </Tabs>
+          
+          {/* Usage Notes section */}
+          <div className="mt-12 space-y-6">
+            <h2 className="text-2xl font-bold text-white mb-6">Usage Notes</h2>
+            
+            <Alert className="bg-github-darker/50 border-github-highlight/30 text-github-text">
+              <Info className="h-5 w-5 text-github-highlight" />
+              <AlertDescription className="ml-6 mt-1">
+                <strong className="text-white">Note:</strong> The plugin dynamically replaces the placeholder <code className="bg-github-darker px-1 py-0.5 rounded text-github-text">$UserInput$</code> in action keys with the current input text. It also escapes special characters (such as double quotes) to ensure the resulting Rainmeter command is valid.
+              </AlertDescription>
+            </Alert>
+            
+            <Alert className="bg-github-darker/50 border-github-highlight/30 text-github-text">
+              <Info className="h-5 w-5 text-github-highlight" />
+              <AlertDescription className="ml-6 mt-1">
+                <strong className="text-white">InputTextX</strong> is incompatible with skins set to <strong className="text-white">Stay Topmost</strong>, or <code className="bg-github-darker px-1 py-0.5 rounded text-github-text">AlwaysOnTop=2</code>, as the conflict between the input field, which requires "focus", and the constant attempts by the skin to stay on "top", in front of the input field, will not allow InputTextX to function correctly.
+              </AlertDescription>
+            </Alert>
+            
+            <Alert className="bg-github-darker/50 border-destructive/30 text-github-text">
+              <AlertTriangle className="h-5 w-5 text-destructive" />
+              <AlertDescription className="ml-6 mt-1">
+                <strong className="text-destructive">Warning:</strong> Ensure that your custom commands (especially those using <code className="bg-github-darker px-1 py-0.5 rounded text-github-text">$UserInput$</code>) are properly formatted. Improper command syntax may cause unexpected behavior in Rainmeter.
+              </AlertDescription>
+            </Alert>
+          </div>
         </div>
       </div>
     </section>
