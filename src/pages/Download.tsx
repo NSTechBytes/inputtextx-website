@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import Header from '@/components/Header';
 import Download from '@/components/Download';
-import Footer from '@/components/Footer';
 
 const DownloadPage = () => {
   useEffect(() => {
@@ -40,10 +39,9 @@ const DownloadPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow pt-16 sm:pt-20">
+      <main className="flex-grow">
         <Download />
       </main>
-      <Footer />
     </div>
   );
 };

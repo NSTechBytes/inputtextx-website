@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { Download as DownloadIcon, Github, CheckCircle2, Info, ArrowDown } from 'lucide-react';
+import { Download as DownloadIcon, Github, CheckCircle2, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from '@/hooks/use-toast';
@@ -12,7 +12,6 @@ interface GitHubRelease {
   name: string;
   assets: Array<{
     name: string;
-    download_count: number;
     browser_download_url: string;
   }>;
 }
@@ -20,7 +19,6 @@ interface GitHubRelease {
 const Download = () => {
   const [latestRelease, setLatestRelease] = useState<GitHubRelease | null>(null);
   const [loading, setLoading] = useState(true);
-  const [totalDownloads, setTotalDownloads] = useState(0);
 
   useEffect(() => {
     const fetchLatestRelease = async () => {
@@ -31,10 +29,6 @@ const Download = () => {
         }
         const data = await response.json();
         setLatestRelease(data);
-        
-        // Calculate total downloads from all assets
-        const downloads = data.assets?.reduce((sum: number, asset: any) => sum + asset.download_count, 0) || 0;
-        setTotalDownloads(downloads);
       } catch (error) {
         console.error('Error fetching release data:', error);
         toast({
@@ -71,15 +65,6 @@ const Download = () => {
     });
   };
 
-  const getAssetDownloads = (assetName: string) => {
-    if (!latestRelease?.assets) return 0;
-    const asset = latestRelease.assets.find(a => a.name.includes(assetName));
-    return asset?.download_count || 0;
-  };
-
-  const dllDownloads = getAssetDownloads('dll');
-  const rmskinDownloads = getAssetDownloads('rmskin');
-
   const installSteps = [
     "Download the latest release zip file",
     "Extract the contents to your Rainmeter plugins folder",
@@ -88,7 +73,7 @@ const Download = () => {
   ];
 
   return (
-    <section id="download" className="section-padding bg-gradient-to-b from-github-darker to-github-dark relative">
+    <section id="download" className="min-h-screen flex items-center section-padding bg-gradient-to-b from-github-darker to-github-dark relative">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#238636,transparent_60%)]"></div>
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top_right,#388bfd,transparent_50%)]"></div>
       
@@ -98,18 +83,12 @@ const Download = () => {
           <p className="text-github-muted max-w-2xl mx-auto px-4">
             Get the latest version of InputTextX and enhance your Rainmeter experience
           </p>
-          {!loading && (
-            <div className="mt-4 inline-flex items-center justify-center bg-github-darker/60 px-4 py-2 rounded-full">
-              <ArrowDown className="h-4 w-4 mr-2 text-github-accent" />
-              <span className="text-github-accent font-medium">{totalDownloads.toLocaleString()} total downloads</span>
-            </div>
-          )}
         </div>
 
         <div className="max-w-4xl mx-auto px-4">
           <div className="glass rounded-lg border border-github-border overflow-hidden">
             <div className="flex flex-col md:flex-row">
-              <div className="p-6 md:p-10 flex flex-col justify-center bg-gradient-to-br from-github-accent/20 to-transparent md:w-1/2">
+              <div className="p-4 sm:p-6 md:p-10 flex flex-col justify-center bg-gradient-to-br from-github-accent/20 to-transparent md:w-1/2">
                 {loading ? (
                   <>
                     <Skeleton className="h-8 w-3/4 mb-2" />
@@ -126,7 +105,7 @@ const Download = () => {
                       <p className="text-github-muted mb-6 md:mb-8 text-sm md:text-base">Released on {releaseDate}</p>
                     )}
                     
-                    <div className="space-y-4 md:space-y-6">
+                    <div className="space-y-3 sm:space-y-4 md:space-y-6">
                       <div className="w-full">
                         <Button 
                           size="lg" 
@@ -136,11 +115,6 @@ const Download = () => {
                           <DownloadIcon className="mr-2 h-5 w-5 group-hover:animate-bounce" />
                           Download Now
                         </Button>
-                        {dllDownloads > 0 && (
-                          <p className="text-center text-github-muted text-xs mt-1">
-                            {dllDownloads.toLocaleString()} downloads
-                          </p>
-                        )}
                       </div>
                       
                       <div className="w-full">
@@ -177,18 +151,13 @@ const Download = () => {
                           <DownloadIcon className="mr-2 h-5 w-5" />
                           Download Example Skins
                         </Button>
-                        {rmskinDownloads > 0 && (
-                          <p className="text-center text-github-muted text-xs mt-1">
-                            {rmskinDownloads.toLocaleString()} downloads
-                          </p>
-                        )}
                       </div>
                     </div>
                   </>
                 )}
               </div>
               
-              <div className="p-6 md:p-10 border-t md:border-t-0 md:border-l border-github-border bg-github-darker/50 md:w-1/2">
+              <div className="p-4 sm:p-6 md:p-10 border-t md:border-t-0 md:border-l border-github-border bg-github-darker/50 md:w-1/2">
                 <h3 className="text-lg md:text-xl font-medium mb-4 md:mb-6 text-white">Installation Steps</h3>
                 <ScrollArea className="h-[220px] md:h-auto pr-4">
                   <ul className="space-y-3 md:space-y-4">
