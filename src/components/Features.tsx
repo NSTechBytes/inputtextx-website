@@ -1,4 +1,3 @@
-
 import { 
   Palette, 
   Terminal, 
@@ -21,8 +20,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Features = () => {
+  const isMobile = useIsMobile();
+  
   const featureCategories = [
     {
       id: "appearance",
@@ -150,7 +152,7 @@ const Features = () => {
     <section id="features" className="section-padding bg-github-dark relative">
       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,#0d1117_70%)]"></div>
       
-      <div className="container mx-auto relative z-10">
+      <div className="container mx-auto relative z-10 px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Key Features</h2>
           <p className="text-github-muted max-w-2xl mx-auto">
@@ -158,17 +160,17 @@ const Features = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-16">
           {featureCategories.map((category) => (
             <div 
               key={category.id}
-              className="reveal flex space-x-6 p-6 rounded-lg border border-github-border bg-github-darker/20 hover:bg-github-darker/40 transition-colors"
+              className="reveal flex flex-col md:flex-row md:space-x-6 p-4 md:p-6 rounded-lg border border-github-border bg-github-darker/20 hover:bg-github-darker/40 transition-colors"
             >
-              <div className="min-w-12 h-12 rounded-full bg-github-highlight/10 flex items-center justify-center text-github-highlight shrink-0">
+              <div className="min-w-12 h-12 rounded-full bg-github-highlight/10 flex items-center justify-center text-github-highlight shrink-0 mb-4 md:mb-0 mx-auto md:mx-0">
                 {category.icon}
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-white mb-2">{category.title}</h3>
+                <h3 className="text-xl font-semibold text-white mb-2 text-center md:text-left">{category.title}</h3>
                 <p className="text-github-muted mb-4">{category.description}</p>
                 <ul className="list-disc pl-5 space-y-2 text-github-muted">
                   {category.features.map((feature, index) => (
@@ -180,13 +182,13 @@ const Features = () => {
           ))}
         </div>
         
-        <div className="glass p-8 rounded-lg border border-github-border bg-github-darker/50 mb-16">
-          <h3 className="text-2xl font-bold mb-4 text-white flex items-center">
+        <div className="glass p-4 md:p-8 rounded-lg border border-github-border bg-github-darker/50 mb-16">
+          <h3 className="text-2xl font-bold mb-4 text-white flex items-center justify-center md:justify-start">
             <Wrench className="mr-2 text-github-highlight" /> Configuration Options
           </h3>
           <Tabs defaultValue="all" className="w-full">
-            <TabsList className="flex justify-center mb-6 bg-github-darker/50 overflow-x-auto">
-              <TabsTrigger value="all">All Options</TabsTrigger>
+            <TabsList className="flex flex-wrap justify-center mb-6 bg-github-darker/50 overflow-x-auto">
+              <TabsTrigger value="all">All</TabsTrigger>
               <TabsTrigger value="appearance">Appearance</TabsTrigger>
               <TabsTrigger value="input">Input</TabsTrigger>
               <TabsTrigger value="actions">Actions</TabsTrigger>

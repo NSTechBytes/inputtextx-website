@@ -1,4 +1,3 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CodeBlock from './CodeBlock';
 import {
@@ -12,8 +11,11 @@ import {
 } from "@/components/ui/table";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Info, AlertTriangle } from "lucide-react";
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Documentation = () => {
+  const isMobile = useIsMobile();
+  
   const sampleCode = `[Rainmeter]
 Update=1000
 AccurateText=1
@@ -90,8 +92,8 @@ Command1=[!Log "The user typed: $UserInput$"]`;
 
   return (
     <section id="documentation" className="section-padding bg-gradient-to-b from-github-dark to-github-darker relative">
-      <div className="container mx-auto">
-        <div className="text-center mb-16">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-8 md:mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Documentation</h2>
           <p className="text-github-muted max-w-2xl mx-auto">
             Learn how to install, configure, and use InputTextX in your Rainmeter skins
@@ -100,29 +102,29 @@ Command1=[!Log "The user typed: $UserInput$"]`;
 
         <div className="max-w-4xl mx-auto">
           <Tabs defaultValue="installation" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-8 bg-github-darker border border-github-border rounded-md">
+            <TabsList className={`${isMobile ? 'flex flex-wrap' : 'grid grid-cols-3'} w-full mb-8 bg-github-darker border border-github-border rounded-md`}>
               <TabsTrigger value="installation">Installation</TabsTrigger>
               <TabsTrigger value="configuration">Configuration</TabsTrigger>
-              <TabsTrigger value="options">Options Reference</TabsTrigger>
+              <TabsTrigger value="options">Options</TabsTrigger>
             </TabsList>
             
             <TabsContent value="installation" className="space-y-6 animate-fade-in">
-              <div className="glass p-6 rounded-lg border border-github-border bg-github-darker/50">
+              <div className="glass p-4 md:p-6 rounded-lg border border-github-border bg-github-darker/50">
                 <h3 className="text-xl font-medium mb-4 text-white">Installing InputTextX</h3>
                 <ol className="space-y-4 text-github-text">
-                  <li className="flex gap-3">
+                  <li className="flex gap-2 md:gap-3">
                     <span className="flex-shrink-0 rounded-full h-6 w-6 bg-github-highlight/20 text-github-highlight flex items-center justify-center text-sm font-medium">1</span>
                     <span>Download the latest release from the <a href="#download" className="text-github-highlight hover:underline">download section</a> or GitHub repository.</span>
                   </li>
-                  <li className="flex gap-3">
+                  <li className="flex gap-2 md:gap-3">
                     <span className="flex-shrink-0 rounded-full h-6 w-6 bg-github-highlight/20 text-github-highlight flex items-center justify-center text-sm font-medium">2</span>
                     <span>Extract the zip file to your Rainmeter plugins folder (usually <code className="bg-github-darker px-1 py-0.5 rounded text-github-text">%AppData%\Rainmeter\Plugins</code>).</span>
                   </li>
-                  <li className="flex gap-3">
+                  <li className="flex gap-2 md:gap-3">
                     <span className="flex-shrink-0 rounded-full h-6 w-6 bg-github-highlight/20 text-github-highlight flex items-center justify-center text-sm font-medium">3</span>
                     <span>Restart Rainmeter by right-clicking the Rainmeter icon in the system tray and selecting "Refresh all".</span>
                   </li>
-                  <li className="flex gap-3">
+                  <li className="flex gap-2 md:gap-3">
                     <span className="flex-shrink-0 rounded-full h-6 w-6 bg-github-highlight/20 text-github-highlight flex items-center justify-center text-sm font-medium">4</span>
                     <span>Create a new skin or modify an existing one using the configuration example below.</span>
                   </li>
@@ -227,27 +229,26 @@ DefaultValue=Styled input field...`}
             </TabsContent>
           </Tabs>
           
-          {/* Usage Notes section */}
-          <div className="mt-12 space-y-6">
-            <h2 className="text-2xl font-bold text-white mb-6">Usage Notes</h2>
+          <div className="mt-8 md:mt-12 space-y-4 md:space-y-6">
+            <h2 className="text-2xl font-bold text-white mb-4 md:mb-6">Usage Notes</h2>
             
             <Alert className="bg-github-darker/50 border-github-highlight/30 text-github-text">
               <Info className="h-5 w-5 text-github-highlight" />
-              <AlertDescription className="ml-6 mt-1">
+              <AlertDescription className="ml-4 md:ml-6 mt-1">
                 <strong className="text-white">Note:</strong> The plugin dynamically replaces the placeholder <code className="bg-github-darker px-1 py-0.5 rounded text-github-text">$UserInput$</code> in action keys with the current input text. It also escapes special characters (such as double quotes) to ensure the resulting Rainmeter command is valid.
               </AlertDescription>
             </Alert>
             
             <Alert className="bg-github-darker/50 border-github-highlight/30 text-github-text">
               <Info className="h-5 w-5 text-github-highlight" />
-              <AlertDescription className="ml-6 mt-1">
+              <AlertDescription className="ml-4 md:ml-6 mt-1">
                 <strong className="text-white">InputTextX</strong> is incompatible with skins set to <strong className="text-white">Stay Topmost</strong>, or <code className="bg-github-darker px-1 py-0.5 rounded text-github-text">AlwaysOnTop=2</code>, as the conflict between the input field, which requires "focus", and the constant attempts by the skin to stay on "top", in front of the input field, will not allow InputTextX to function correctly.
               </AlertDescription>
             </Alert>
             
             <Alert className="bg-github-darker/50 border-destructive/30 text-github-text">
               <AlertTriangle className="h-5 w-5 text-destructive" />
-              <AlertDescription className="ml-6 mt-1">
+              <AlertDescription className="ml-4 md:ml-6 mt-1">
                 <strong className="text-destructive">Warning:</strong> Ensure that your custom commands (especially those using <code className="bg-github-darker px-1 py-0.5 rounded text-github-text">$UserInput$</code>) are properly formatted. Improper command syntax may cause unexpected behavior in Rainmeter.
               </AlertDescription>
             </Alert>
