@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { Download as DownloadIcon, Github, CheckCircle2, Info } from 'lucide-react';
+import { Download as DownloadIcon, Github, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from '@/hooks/use-toast';
@@ -58,7 +58,15 @@ const Download = () => {
   const releaseDate = latestRelease ? formatDate(latestRelease.published_at) : '';
 
   const handleDownload = (url: string, name: string) => {
-    window.open(url, '_blank');
+    // Create an anchor element and trigger download
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = name;
+    link.setAttribute('download', ''); // This is important for direct download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
     toast({
       title: "Download initiated",
       description: `${name} is being downloaded`,
@@ -110,7 +118,7 @@ const Download = () => {
                         <Button 
                           size="lg" 
                           className="w-full bg-github-accent hover:bg-github-accent/90 text-white group"
-                          onClick={() => handleDownload(`https://github.com/NSTechBytes/InputTextX/releases/download/${version}/InputTextX_dll_${version}.zip`, 'InputTextX DLL')}
+                          onClick={() => handleDownload(`https://github.com/NSTechBytes/InputTextX/releases/download/${version}/InputTextX_dll_${version}.zip`, 'InputTextX_dll.zip')}
                         >
                           <DownloadIcon className="mr-2 h-5 w-5 group-hover:animate-bounce" />
                           Download Now
@@ -122,7 +130,9 @@ const Download = () => {
                           variant="outline" 
                           size="lg"
                           className="w-full border-github-border text-github-text hover:bg-github-border/30 hover:text-white"
-                          onClick={() => window.open('https://github.com/nstechbytes/InputTextX', '_blank')}
+                          onClick={() => {
+                            window.open('https://github.com/nstechbytes/InputTextX', '_blank');
+                          }}
                         >
                           <Github className="mr-2 h-5 w-5" />
                           View on GitHub
@@ -134,7 +144,7 @@ const Download = () => {
                           variant="outline" 
                           size="lg"
                           className="w-full border-github-border text-github-text hover:bg-github-border/30 hover:text-white"
-                          onClick={() => window.open('https://github.com/nstechbytes/InputTextX/archive/refs/heads/main.zip', '_blank')}
+                          onClick={() => handleDownload('https://github.com/nstechbytes/InputTextX/archive/refs/heads/main.zip', 'InputTextX-source.zip')}
                         >
                           <DownloadIcon className="mr-2 h-5 w-5" />
                           Download Source Code
@@ -146,7 +156,7 @@ const Download = () => {
                           variant="outline" 
                           size="lg"
                           className="w-full border-github-border text-github-text hover:bg-github-border/30 hover:text-white"
-                          onClick={() => handleDownload(`https://github.com/NSTechBytes/InputTextX/releases/download/${version}/InputTextX_${version}.rmskin`, 'Example Skins')}
+                          onClick={() => handleDownload(`https://github.com/NSTechBytes/InputTextX/releases/download/${version}/InputTextX_${version}.rmskin`, 'InputTextX_Examples.rmskin')}
                         >
                           <DownloadIcon className="mr-2 h-5 w-5" />
                           Download Example Skins
