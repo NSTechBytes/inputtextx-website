@@ -47,31 +47,31 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-1">
             <Link 
               to="/" 
-              className={`nav-item ${isActive('/') ? 'text-github-highlight' : ''}`}
+              className={`nav-item ${isActive('/') ? 'text-white bg-github-highlight/20 after:scale-x-100' : ''}`}
             >
               Home
             </Link>
             <Link 
               to="/features" 
-              className={`nav-item ${isActive('/features') ? 'text-github-highlight' : ''}`}
+              className={`nav-item ${isActive('/features') ? 'text-white bg-github-highlight/20 after:scale-x-100' : ''}`}
             >
               Features
             </Link>
             <Link 
               to="/documentation" 
-              className={`nav-item ${isActive('/documentation') ? 'text-github-highlight' : ''}`}
+              className={`nav-item ${isActive('/documentation') ? 'text-white bg-github-highlight/20 after:scale-x-100' : ''}`}
             >
               Documentation
             </Link>
             <Link 
               to="/download" 
-              className={`nav-item ${isActive('/download') ? 'text-github-highlight' : ''}`}
+              className={`nav-item ${isActive('/download') ? 'text-white bg-github-highlight/20 after:scale-x-100' : ''}`}
             >
               Download
             </Link>
             <Link 
               to="/contact" 
-              className={`nav-item ${isActive('/contact') ? 'text-github-highlight' : ''}`}
+              className={`nav-item ${isActive('/contact') ? 'text-white bg-github-highlight/20 after:scale-x-100' : ''}`}
             >
               Contact
             </Link>
@@ -98,35 +98,35 @@ const Header = () => {
           <nav className="flex flex-col space-y-3">
             <Link 
               to="/" 
-              className={`nav-item ${isActive('/') ? 'text-github-highlight' : ''}`}
+              className={`nav-item ${isActive('/') ? 'text-white bg-github-highlight/20 after:scale-x-100' : ''}`}
               onClick={toggleMobileMenu}
             >
               Home
             </Link>
             <Link 
               to="/features" 
-              className={`nav-item ${isActive('/features') ? 'text-github-highlight' : ''}`}
+              className={`nav-item ${isActive('/features') ? 'text-white bg-github-highlight/20 after:scale-x-100' : ''}`}
               onClick={toggleMobileMenu}
             >
               Features
             </Link>
             <Link 
               to="/documentation" 
-              className={`nav-item ${isActive('/documentation') ? 'text-github-highlight' : ''}`}
+              className={`nav-item ${isActive('/documentation') ? 'text-white bg-github-highlight/20 after:scale-x-100' : ''}`}
               onClick={toggleMobileMenu}
             >
               Documentation
             </Link>
             <Link 
               to="/download" 
-              className={`nav-item ${isActive('/download') ? 'text-github-highlight' : ''}`}
+              className={`nav-item ${isActive('/download') ? 'text-white bg-github-highlight/20 after:scale-x-100' : ''}`}
               onClick={toggleMobileMenu}
             >
               Download
             </Link>
             <Link 
               to="/contact" 
-              className={`nav-item ${isActive('/contact') ? 'text-github-highlight' : ''}`}
+              className={`nav-item ${isActive('/contact') ? 'text-white bg-github-highlight/20 after:scale-x-100' : ''}`}
               onClick={toggleMobileMenu}
             >
               Contact
