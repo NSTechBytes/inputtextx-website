@@ -131,7 +131,7 @@ const Features = () => {
     { key: "AllowScroll", description: "If set to 1, enables vertical scroll for multiline input", type: "Integer", defaultValue: "0" },
     { key: "InputLimit", description: "Maximum number of characters allowed", type: "Integer", defaultValue: "0 (no limit)" },
     { key: "DefaultValue", description: "Initial text in the input box", type: "String", defaultValue: "Empty" },
-    { key: "InputType", description: "Type of allowed input (see list below)", type: "String", defaultValue: "String" },
+    { key: "InputType", description: "Type of allowed input String, Integer, Float, Letters, Alphanumeric, Hexadecimal, Email, Custom", type: "String", defaultValue: "String" },
     { key: "AllowedChars", description: "For InputType=Custom, characters allowed", type: "String", defaultValue: "Empty" },
     { key: "OnDismissAction", description: "Rainmeter command executed when the input overlay loses focus", type: "String", defaultValue: "Empty" },
     { key: "OnEnterAction", description: "Rainmeter command executed on pressing Enter", type: "String", defaultValue: "Empty" },
@@ -144,7 +144,8 @@ const Features = () => {
     { key: "BorderThickness", description: "Thickness of the border in pixels", type: "Integer", defaultValue: "2" },
     { key: "MinValue", description: "Minimum numeric value (for Integer/Float types)", type: "Double", defaultValue: "double.MinValue" },
     { key: "MaxValue", description: "Maximum numeric value (for Integer/Float types)", type: "Double", defaultValue: "double.MaxValue" },
-    { key: "TopMost", description: "If set to 1, the overlay is displayed on top of other windows", type: "Integer", defaultValue: "1" },
+    { key: "TopMost", description: "If set to 1, the overlay is displayed on top of other windows", type: "Integer", defaultValue: "0" },
+    { key: "UnFocusDismiss", description: "If set to 1 (default), clicking anywhere other than on the input field will dismiss the input without taking action. If set to 0, the mouse is disabled until Enter or Escape is pressed.", type: "Integer", defaultValue: "1" },
     { key: "Logging", description: "If set to 1, detailed log messages will be printed to the Rainmeter log", type: "Integer", defaultValue: "0" }
   ];
 
@@ -319,7 +320,7 @@ const Features = () => {
                   <TableBody>
                     {configOptions
                       .filter(option => 
-                        ['TopMost', 'Logging'].includes(option.key)
+                        ['TopMost', 'Logging','UnFocusDismiss'].includes(option.key)
                       )
                       .map((option, index) => (
                         <TableRow key={index} className="border-github-border hover:bg-github-darker/40">

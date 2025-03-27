@@ -18,7 +18,7 @@ const FAQ = () => {
     },
     {
       question: "Can I customize the appearance of the input cursor?",
-      answer: "Yes, InputTextX allows you to customize the cursor appearance. Use 'CursorColor' to set the cursor color (in R,G,B,A format) and 'CursorWidth' to adjust its width. For example: 'CursorColor=255,255,255,255' for a white cursor and 'CursorWidth=2' for a 2-pixel width cursor."
+      answer: "Yes, InputTextX allows you to customize the cursor appearance. Use 'CursorColor' to set the cursor color (in R,G,B,A format) and 'CursorWidth' to adjust its width. For example: 'CursorColor=255,255,255' for a white cursor and 'CursorWidth=2' for a 2-pixel width cursor."
     },
     {
       question: "How do I handle multiline text input?",
@@ -30,11 +30,11 @@ const FAQ = () => {
     },
     {
       question: "How do I retrieve the input value in another measure or skin?",
-      answer: "You can access the input value in other measures using the GetMeasure's GetValue function. For example, in a string measure: 'Formula=[MeasureInputText]'. Alternatively, use Command1 to set a variable that can be accessed by other skins: 'Command1=[!SetVariable UserInput \"$UserInput$\"]'."
+      answer: "You can access the input value in other measures using the GetMeasure's GetValue function. For example, in a string measure: 'Formula=[MeasureInputText]'. Alternatively, use OnEnterAction to set a variable that can be accessed by other skins: 'OnEnterAction=[!SetVariable UserInput \"$UserInput$\"]'."
     },
     {
       question: "Does InputTextX support input validation?",
-      answer: "InputTextX doesn't have built-in validation, but you can implement validation using Command actions. For example, use Command1 with Rainmeter's conditional checks to validate input and provide feedback: 'Command1=[!SetOption ValidationText Text \"Invalid input\"][!ShowMeter ValidationText]'"
+      answer: "InputTextX doesn't have built-in validation, but you can implement validation using Command actions. For example, use OnEnterAction with Rainmeter's conditional checks to validate input and provide feedback: 'OnEnterAction=[!SetOption ValidationText Text \"Invalid input\"][!ShowMeter ValidationText]'"
     },
     {
       question: "Can I use InputTextX with other languages and special characters?",

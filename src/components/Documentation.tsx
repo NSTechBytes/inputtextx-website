@@ -26,16 +26,16 @@ Measure=Plugin
 Plugin=InputTextX
 FontFace=Segoe UI
 FontSize=10
-FontColor=255,255,255,255
-SolidColor=30,30,30,255
+FontColor=255,255,255
+SolidColor=30,30,30
 StringStyle=Bold
-StringAlign=Left
+Align=Left
 W=200
 H=30
 X=0
 Y=0
 DefaultValue=Type something...
-Command1=[!Log "$UserInput$" Notice]`;
+OnEnterAction=[!Log "$UserInput$" Notice]`;
 
   const installationCode = `[Rainmeter]
 Update=1000
@@ -45,19 +45,19 @@ Measure=Plugin
 Plugin=InputTextX
 FontFace=Segoe UI
 FontSize=10
-FontColor=255,255,255,255
-SolidColor=30,30,30,255
+FontColor=255,255,255
+SolidColor=30,30,30
 AntiAlias=1
 FocusDismiss=1
 Password=0
-StringAlign=Left
+Align=Left
 StringStyle=Normal
 W=200
 H=32
 X=0
 Y=0
 DefaultValue=Click to type...
-Command1=[!Log "The user typed: $UserInput$"]`;
+OnEnterAction=[!Log "The user typed: $UserInput$"]`;
 
   const configOptions = [
     { key: "W", description: "Width of the input overlay", type: "Integer", defaultValue: "300" },
@@ -73,7 +73,7 @@ Command1=[!Log "The user typed: $UserInput$"]`;
     { key: "AllowScroll", description: "If set to 1, enables vertical scroll for multiline input", type: "Integer", defaultValue: "0" },
     { key: "InputLimit", description: "Maximum number of characters allowed", type: "Integer", defaultValue: "0 (no limit)" },
     { key: "DefaultValue", description: "Initial text in the input box", type: "String", defaultValue: "Empty" },
-    { key: "InputType", description: "Type of allowed input (see list below)", type: "String", defaultValue: "String" },
+    { key: "InputType", description: "Type of allowed input String, Integer, Float, Letters, Alphanumeric, Hexadecimal, Email, Custom", type: "String", defaultValue: "String" },
     { key: "AllowedChars", description: "For InputType=Custom, characters allowed", type: "String", defaultValue: "Empty" },
     { key: "OnDismissAction", description: "Rainmeter command executed when the input overlay loses focus", type: "String", defaultValue: "Empty" },
     { key: "OnEnterAction", description: "Rainmeter command executed on pressing Enter", type: "String", defaultValue: "Empty" },
@@ -86,7 +86,8 @@ Command1=[!Log "The user typed: $UserInput$"]`;
     { key: "BorderThickness", description: "Thickness of the border in pixels", type: "Integer", defaultValue: "2" },
     { key: "MinValue", description: "Minimum numeric value (for Integer/Float types)", type: "Double", defaultValue: "double.MinValue" },
     { key: "MaxValue", description: "Maximum numeric value (for Integer/Float types)", type: "Double", defaultValue: "double.MaxValue" },
-    { key: "TopMost", description: "If set to 1, the overlay is displayed on top of other windows", type: "Integer", defaultValue: "1" },
+    { key: "TopMost", description: "If set to 1, the overlay is displayed on top of other windows", type: "Integer", defaultValue: "0" },
+    { key: "UnFocusDismiss", description: "If set to 1 (default), clicking anywhere other than on the input field will dismiss the input without taking action. If set to 0, the mouse is disabled until Enter or Escape is pressed.", type: "Integer", defaultValue: "1" },
     { key: "Logging", description: "If set to 1, detailed log messages will be printed to the Rainmeter log", type: "Integer", defaultValue: "0" }
   ];
 
@@ -114,7 +115,7 @@ Command1=[!Log "The user typed: $UserInput$"]`;
                 <ol className="space-y-4 text-github-text">
                   <li className="flex gap-2 md:gap-3">
                     <span className="flex-shrink-0 rounded-full h-6 w-6 bg-github-highlight/20 text-github-highlight flex items-center justify-center text-sm font-medium">1</span>
-                    <span>Download the latest release from the <a href="#download" className="text-github-highlight hover:underline">download section</a> or GitHub repository.</span>
+                    <span>Download the latest release from the <a href="/download" className="text-github-highlight hover:underline">download section</a> or GitHub repository.</span>
                   </li>
                   <li className="flex gap-2 md:gap-3">
                     <span className="flex-shrink-0 rounded-full h-6 w-6 bg-github-highlight/20 text-github-highlight flex items-center justify-center text-sm font-medium">2</span>
@@ -176,10 +177,8 @@ Measure=Plugin
 Plugin=InputTextX
 FontFace=Roboto
 FontSize=12
-FontColor=255,255,255,255
+FontColor=255,255,255
 SolidColor=40,44,52,255
-MouseOverAction=[!SetOption MeasureCustomStyle SolidColor "50,54,62,255"]
-MouseLeaveAction=[!SetOption MeasureCustomStyle SolidColor "40,44,52,255"]
 StringStyle=Bold
 X=10
 Y=10
