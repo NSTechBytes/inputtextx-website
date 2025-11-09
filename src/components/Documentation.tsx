@@ -103,10 +103,11 @@ OnEnterAction=[!Log "The user typed: $UserInput$"]`;
 
         <div className="max-w-4xl mx-auto">
           <Tabs defaultValue="installation" className="w-full">
-            <TabsList className={`${isMobile ? 'flex flex-wrap' : 'grid grid-cols-3'} w-full mb-8 bg-github-darker border border-github-border rounded-md`}>
+            <TabsList className={`${isMobile ? 'flex flex-wrap' : 'grid grid-cols-4'} w-full mb-8 bg-github-darker border border-github-border rounded-md`}>
               <TabsTrigger value="installation">Installation</TabsTrigger>
               <TabsTrigger value="configuration">Configuration</TabsTrigger>
               <TabsTrigger value="options">Options</TabsTrigger>
+              <TabsTrigger value="bangs">Bangs</TabsTrigger>
             </TabsList>
             
             <TabsContent value="installation" className="space-y-6 animate-fade-in">
@@ -224,6 +225,112 @@ DefaultValue=Styled input field...`}
                     ))}
                   </TableBody>
                 </Table>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="bangs" className="space-y-6 animate-fade-in">
+              <div className="glass p-6 rounded-lg border border-github-border bg-github-darker/50">
+                <h3 className="text-xl font-medium mb-4 text-white">InputTextX Bangs</h3>
+                <p className="text-github-text mb-4">
+                  InputTextX provides Rainmeter bangs (commands) to programmatically control the input overlay. 
+                  Use these commands in your skin's actions to start or stop the input field.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="glass p-6 rounded-lg border border-github-border bg-github-darker/50">
+                  <h4 className="text-lg font-medium mb-3 text-white">Start Bang</h4>
+                  <p className="text-github-text mb-4">
+                    Activates the input overlay for the specified measure, allowing user input.
+                  </p>
+                  <CodeBlock 
+                    code={`[!CommandMeasure MeasureName "Start"]`} 
+                    title="Start Input Overlay"
+                    showLineNumbers={false}
+                  />
+                  <div className="mt-4">
+                    <h5 className="text-sm font-medium text-white mb-2">Example Usage:</h5>
+                    <CodeBlock 
+                      code={`[MeterButton]
+Meter=String
+Text="Click to Input"
+LeftMouseUpAction=[!CommandMeasure MeasureInputText "Start"]`} 
+                      title="Button to Start Input"
+                      showLineNumbers={false}
+                    />
+                  </div>
+                </div>
+
+                <div className="glass p-6 rounded-lg border border-github-border bg-github-darker/50">
+                  <h4 className="text-lg font-medium mb-3 text-white">Stop Bang</h4>
+                  <p className="text-github-text mb-4">
+                    Closes the input overlay for the specified measure without executing any action.
+                  </p>
+                  <CodeBlock 
+                    code={`[!CommandMeasure MeasureName "Stop"]`} 
+                    title="Stop Input Overlay"
+                    showLineNumbers={false}
+                  />
+                  <div className="mt-4">
+                    <h5 className="text-sm font-medium text-white mb-2">Example Usage:</h5>
+                    <CodeBlock 
+                      code={`[MeterCancelButton]
+Meter=String
+Text="Cancel Input"
+LeftMouseUpAction=[!CommandMeasure MeasureInputText "Stop"]`} 
+                      title="Button to Cancel Input"
+                      showLineNumbers={false}
+                    />
+                  </div>
+                </div>
+
+                <div className="glass p-6 rounded-lg border border-github-border bg-github-darker/50">
+                  <h4 className="text-lg font-medium mb-3 text-white">Complete Example</h4>
+                  <p className="text-github-text mb-4">
+                    A complete skin demonstrating both Start and Stop bangs.
+                  </p>
+                  <CodeBlock 
+                    code={`[Rainmeter]
+Update=1000
+
+[MeasureInputText]
+Measure=Plugin
+Plugin=InputTextX
+FontFace=Segoe UI
+FontSize=12
+FontColor=255,255,255
+SolidColor=30,30,30
+W=300
+H=35
+X=10
+Y=50
+DefaultValue=Type something...
+OnEnterAction=[!Log "User entered: $UserInput$" Notice]
+
+[MeterStartButton]
+Meter=String
+X=10
+Y=10
+Text="Start Input"
+FontFace=Segoe UI
+FontSize=10
+FontColor=255,255,255
+AntiAlias=1
+LeftMouseUpAction=[!CommandMeasure MeasureInputText "Start"]
+
+[MeterStopButton]
+Meter=String
+X=150
+Y=10
+Text="Cancel Input"
+FontFace=Segoe UI
+FontSize=10
+FontColor=255,100,100
+AntiAlias=1
+LeftMouseUpAction=[!CommandMeasure MeasureInputText "Stop"]`} 
+                    title="Complete Bangs Example (bangs-demo.ini)"
+                  />
+                </div>
               </div>
             </TabsContent>
           </Tabs>
